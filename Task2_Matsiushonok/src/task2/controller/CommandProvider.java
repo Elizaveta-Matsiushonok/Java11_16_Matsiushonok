@@ -18,7 +18,7 @@ public class CommandProvider {
 
 	private final Map<CommandName, Command> repository = new HashMap<>();
 
-	CommandProvider() {
+	CommandProvider() {// public класс и единственный friendly конструктор, - это зачем так делать?
 		repository.put(CommandName.SING_IN, new SingIn());
 		repository.put(CommandName.REGISTER, new Register());
 		repository.put(CommandName.ALL_CATEGORIES, new AllCategories());
