@@ -16,7 +16,8 @@ public class ClientServiceImpl implements ClientService {
 		
 		if(client == null){
 			throw new ServiceException("ERROR: There is no client!");
-		}
+		}// а что, валидировать мы должны только сам объект
+		// а данные внутри объекта?
 		
 		try {
 			DAOFactory daoFactory = DAOFactory.getInstance();

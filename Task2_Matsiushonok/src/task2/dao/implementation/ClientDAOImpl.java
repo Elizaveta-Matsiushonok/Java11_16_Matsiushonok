@@ -23,7 +23,8 @@ public class ClientDAOImpl implements ClientDAO {
 
 		try {
 			preparedStatement = connection.prepareStatement(
-					"INSERT INTO client (login,password, name, surname, patronymic) VALUES (?,?,?,?,?)");
+					"INSERT INTO client (login,password, name, surname, patronymic) VALUES (?,?,?,?,?)");// константные строки именуются
+			// и их лучше выносить в public static final поля
 			preparedStatement.setString(1, client.getLogin());
 			preparedStatement.setString(2, client.getPassword());
 			preparedStatement.setString(3, client.getName());
@@ -31,14 +32,14 @@ public class ClientDAOImpl implements ClientDAO {
 			preparedStatement.setString(5, client.getPatronymic());
 			preparedStatement.execute();
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: Error in adding new client");
+			throw new DAOException("ERROR: Error in adding new client");// потеряла исходное исключение, и в логе его не обнаружится
 		} finally {
 			try {
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
 			} catch (SQLException e) {
-				System.out.println("ERROR:  Error in closing preparedStatment");
+				System.out.println("ERROR:  Error in closing preparedStatment");// все же  лучше System.err - если пока не пользуемся логгером
 			}
 			try {
 				if (connection != null) {

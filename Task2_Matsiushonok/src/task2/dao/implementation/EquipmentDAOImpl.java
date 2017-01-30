@@ -153,7 +153,7 @@ public class EquipmentDAOImpl implements EquipmentDAO {
 	private Equipment createEquipment(ResultSet result) throws SQLException {
 
 		Equipment equipment = new Equipment();
-		equipment.setId(result.getInt("id_equipment"));
+		equipment.setId(result.getInt("id_equipment"));// что ьы делаем с константными строками?
 		equipment.setTitle(result.getString("title"));
 		equipment.setPrice(result.getDouble("price"));
 		equipment.setCategory(result.getString("category"));
