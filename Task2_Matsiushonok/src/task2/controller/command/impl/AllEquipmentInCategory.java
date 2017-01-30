@@ -23,7 +23,8 @@ public class AllEquipmentInCategory implements Command{
 		try {
 			equipments = equipmentService.findByCategory(category);
 		} catch (ServiceException e) {
-			response = "Ñan not get all equipments in this category.";
+			response = "Ñan not get all equipments in this category.";// смотри внимательно на workflow твоего кода
+			//ты делаешь ошибки не продумавая, как будет выполнять твой код не только при позитивном сценарии, но и при негативном
 		}
 		
 		for (Equipment equipment : equipments) {
