@@ -26,6 +26,8 @@ public class AllCategories implements Command {
 			equipments = equipmentService.allEquipments();
 		} catch (ServiceException e) {
 			response = "Can not get all categories.";
+			// а что за смысл идти на следующий цикл for
+			// веди при формировании equipments произошло исключение же
 		}
 		
 		for (Equipment equipment : equipments) {    ///из коллекции всех equipment формируется ответ в виде строки
