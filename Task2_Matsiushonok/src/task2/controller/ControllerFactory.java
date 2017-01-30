@@ -8,7 +8,8 @@ public class ControllerFactory {
 		
 	}
 	
-	Controller controller = new Controller();
+	Controller controller = new Controller();// следи за расположением кода в классе
+	// и где потерялся атрибут доступа?
 	
 	public Controller getController(){
 		return  controller;
