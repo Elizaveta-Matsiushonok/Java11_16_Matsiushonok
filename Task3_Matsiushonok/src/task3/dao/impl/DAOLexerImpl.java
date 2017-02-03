@@ -38,7 +38,7 @@ public class DAOLexerImpl implements DAOLexer {
 			return new Lexeme(builder.toString());    // создаем новую лексему
 			
 		} catch (IOException e) {
-			System.err.println("error in skiping file." + e);
+			System.err.println("error in skiping file." + e.getMessage());
 		}
 
 		return null; 
@@ -52,7 +52,7 @@ public class DAOLexerImpl implements DAOLexer {
 			}
 			posToSkip++;
 		} catch (IOException e) {
-			System.err.println("error in reading character." + e);
+			System.err.println("error in reading character." + e.getMessage());
 			return;                                   // не хотелось запихивать все в try, поэтому return прямо с catch
 		}
 
@@ -76,7 +76,7 @@ public class DAOLexerImpl implements DAOLexer {
 						posToSkip--;
 					}
 				} catch (IOException e) {
-					System.err.println("error in reading character." + e);
+					System.err.println("error in reading character." + e.getMessage());
 					return;
 				}
 				posToSkip++;
@@ -95,7 +95,7 @@ public class DAOLexerImpl implements DAOLexer {
 		try {
 			reader.close();
 		} catch (IOException e) {
-			throw new DAOException("can not close file.");
+			throw new DAOException("can not close file." + e.getMessage());
 		}
 		return false;
 	}
