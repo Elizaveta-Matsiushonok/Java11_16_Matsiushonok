@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.task4.com/web" xmlns:tns="http://www.task4.com/web">
+
+	<xs:element name="web-app" type="tns:webAppType" />
+
+	<xs:complexType name="webAppType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="display-name" type="xs:string" />
+			<xs:element name="welcome-file-list" type="tns:welcomeFileList" />
+			<xs:element name="filter" type="tns:filterType" />
+			<xs:element name="filter-mapping" type="tns:filterMappingType" />
+			<xs:element name="listener" type="tns:listenerType" />
+			<xs:element name="servlet" type="tns:servletType" />
+			<xs:element name="servlet-mapping" type="tns:servletMappingType" />
+			<xs:element name="error-page" type="tns:errorPageType" />
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string" use="required" />
+		<xs:attribute name="version" type="xs:string" use="required" />
+	</xs:complexType>
+
+
+	<xs:complexType name="welcomeFileList">
+		<xs:sequence>
+			<xs:element name="welcome-file" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="filterType">
+		<xs:sequence>
+			<xs:element name="filter-name" type="xs:string" />
+			<xs:element name="filter-class" type="xs:string" />
+			<xs:element name="init-param" type="tns:initParamType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="initParamType">
+		<xs:sequence>
+			<xs:element name="param-name" type="xs:string" />
+			<xs:element name="param-value" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="filterMappingType">
+		<xs:sequence>
+			<xs:element name="filter-name" type="xs:string" />
+			<xs:element name="url-pattern">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="/(.)+" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dispatcher" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="listenerType">
+		<xs:sequence>
+			<xs:element name="listener-class" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="servletType">
+		<xs:sequence>
+			<xs:element name="servlet-name" type="xs:string" />
+			<xs:element name="servlet-class" type="xs:string" />
+			<xs:element name="init-param" type="tns:initParamType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="servletMappingType">
+		<xs:sequence>
+			<xs:element name="servlet-name" type="xs:string" />
+			<xs:element name="url-pattern">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="/(.)+" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="errorPageType">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="exception-type" type="xs:string" />
+				<xs:element name="error-code" type="xs:int" />
+			</xs:choice>
+			<xs:element name="location">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="/(.)+" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
