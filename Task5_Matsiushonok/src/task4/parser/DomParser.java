@@ -23,8 +23,8 @@ import task4.bean.WelcomeFileList;
 import task4.element.IElement;
 import task4.parser.abstr.Parser;
 
-public class DomParser extends Parser{
-		
+public class DomParser extends Parser {
+
 	@Override
 	public void parseXML() {
 
@@ -39,11 +39,31 @@ public class DomParser extends Parser{
 	}
 
 	private List<IElement> getElementsList(Document document) {
-		
+
 		Element root = document.getDocumentElement();
 
 		List<IElement> elements = new ArrayList<>();
 
+		addDisplayNameElement(root, elements);
+
+		addWelcomeFileListElement(root, elements);
+
+		addFilterElement(root, elements);
+
+		addFilterMappingElement(root, elements);
+
+		addListenerElement(root, elements);
+
+		addServletElement(root, elements);
+
+		addServletMappingElement(root, elements);
+
+		addErrorPageElement(root, elements);
+
+		return elements;
+	}
+
+	private void addDisplayNameElement(Element root, List<IElement> elements) {
 		NodeList displayNameNodes = root.getElementsByTagName("display-name");
 		DisplayName displayName = null;
 
@@ -53,7 +73,9 @@ public class DomParser extends Parser{
 			displayName.setDisplayName(displayNameElement.getTextContent());
 			elements.add(displayName);
 		}
+	}
 
+	private void addWelcomeFileListElement(Element root, List<IElement> elements) {
 		NodeList welcomeFileListNodes = root.getElementsByTagName("welcome-file-list");
 		WelcomeFileList welcomeFileList = null;
 
@@ -69,7 +91,9 @@ public class DomParser extends Parser{
 			}
 			elements.add(welcomeFileList);
 		}
+	}
 
+	private void addFilterElement(Element root, List<IElement> elements) {
 		NodeList filterNodes = root.getElementsByTagName("filter");
 		Filter filter = null;
 		InitParam initParam = null;
@@ -79,7 +103,7 @@ public class DomParser extends Parser{
 			Element filterElement = (Element) filterNodes.item(i);
 			filter.setFilterName(filterElement.getElementsByTagName("filter-name").item(0).getTextContent());
 			filter.setFilterClass(filterElement.getElementsByTagName("filter-class").item(0).getTextContent());
-			
+
 			NodeList initParamNodes = filterElement.getElementsByTagName("init-param");
 			for (int j = 0; j < initParamNodes.getLength(); j++) {
 				initParam = new InitParam();
@@ -90,7 +114,9 @@ public class DomParser extends Parser{
 			}
 			elements.add(filter);
 		}
+	}
 
+	private void addFilterMappingElement(Element root, List<IElement> elements) {
 		NodeList filterMappingNodes = root.getElementsByTagName("filter-mapping");
 		FilterMapping filterMapping = null;
 
@@ -102,7 +128,9 @@ public class DomParser extends Parser{
 			filterMapping.setDispatcher(filterMappingElement.getElementsByTagName("dispatcher").item(0).getTextContent());
 			elements.add(filterMapping);
 		}
+	}
 
+	private void addListenerElement(Element root, List<IElement> elements) {
 		NodeList listenerNodes = root.getElementsByTagName("listener");
 		Listener listener = null;
 
@@ -112,16 +140,19 @@ public class DomParser extends Parser{
 			listener.setListenerClass(listenerElement.getElementsByTagName("listener-class").item(0).getTextContent());
 			elements.add(listener);
 		}
+	}
 
+	private void addServletElement(Element root, List<IElement> elements) {
 		NodeList servletNodes = root.getElementsByTagName("servlet");
 		Servlet servlet = null;
+		InitParam initParam = null;
 
 		for (int i = 0; i < servletNodes.getLength(); i++) {
 			servlet = new Servlet();
 			Element servletElement = (Element) servletNodes.item(i);
 			servlet.setServletName(servletElement.getElementsByTagName("servlet-name").item(0).getTextContent());
 			servlet.setServletClass(servletElement.getElementsByTagName("servlet-class").item(0).getTextContent());
-			
+
 			NodeList initParamNodes = servletElement.getElementsByTagName("init-param");
 			for (int j = 0; j < initParamNodes.getLength(); j++) {
 				initParam = new InitParam();
@@ -130,10 +161,12 @@ public class DomParser extends Parser{
 				initParam.setParamValue(initParamElement.getElementsByTagName("param-value").item(0).getTextContent());
 				servlet.setInitParam(initParam);
 			}
-			
+
 			elements.add(servlet);
 		}
+	}
 
+	private void addServletMappingElement(Element root, List<IElement> elements) {
 		NodeList servletMappingNodes = root.getElementsByTagName("servlet-mapping");
 		ServletMapping servletMapping = null;
 
@@ -144,7 +177,9 @@ public class DomParser extends Parser{
 			servletMapping.setUrlPattern(servletMappingElement.getElementsByTagName("url-pattern").item(0).getTextContent());
 			elements.add(servletMapping);
 		}
+	}
 
+	private void addErrorPageElement(Element root, List<IElement> elements) {
 		NodeList errorPageNodes = root.getElementsByTagName("error-page");
 		ErrorPage errorPage = null;
 
@@ -160,9 +195,6 @@ public class DomParser extends Parser{
 			errorPage.setLocation(errorPageElement.getElementsByTagName("location").item(0).getTextContent());
 			elements.add(errorPage);
 		}
-
-		return elements;
 	}
-
 
 }
